@@ -25,8 +25,9 @@ module.exports.Signup = async (req, res, next) => {
     });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
-      withCredentials: true,
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Only secure in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Required for cross-site cookie
     });
     res
       .status(StatusCodes.CREATED)
@@ -58,10 +59,11 @@ module.exports.Login = async (req, res, next) => {
         .json({ message: "Incorrect password or email" });
     }
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: true,
-    });
+   res.cookie("token", token, {
+     httpOnly: true,
+     secure: process.env.NODE_ENV === "production", // Only secure in production
+     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Required for cross-site cookie
+   });
     res
       .status(StatusCodes.OK)
       .json({ message: "User logged in successfully", success: true });
