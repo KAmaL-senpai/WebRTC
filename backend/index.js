@@ -30,7 +30,7 @@ main()
 app.use(express.json({ limit: "40kb" }));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://web-rtc-lac.vercel.app",
     credentials: true,
   })
 );
