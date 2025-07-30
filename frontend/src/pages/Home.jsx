@@ -6,7 +6,6 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import logo from "../assets/logo3.png";
-// import { addToHistory } from "../../../backend/controllers/AuthControllers";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Home = () => {
@@ -22,9 +21,12 @@ const Home = () => {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/home", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/home`,
+          {
+            withCredentials: true,
+          }
+        );
 
         if (!res.data.user) {
           navigate("/auth");
@@ -40,9 +42,12 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/api/v1/users/logout", {
-        withCredentials: true,
-      });
+      await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/logout`,
+        {
+          withCredentials: true,
+        }
+      );
       navigate("/");
     } catch (err) {
       console.error("Logout failed", err);

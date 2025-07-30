@@ -16,7 +16,7 @@ import styles from "../styles/VideoMeet.module.css";
 import io from "socket.io-client";
 import CloseIcon from "@mui/icons-material/Close";
 
-const server_url = "http://localhost:8000";
+const server_url = `${import.meta.env.VITE_BACKEND_URL}`;
 var connections = {};
 const peerConfigConnections = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
